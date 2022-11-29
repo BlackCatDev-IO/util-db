@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export class UtilDTO {
-  data: string;
+  data: any;
 }
 
 export const UtilSchema = new mongoose.Schema({
