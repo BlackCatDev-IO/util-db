@@ -29,4 +29,8 @@ export class AppService {
   async insertOne(utilDTO: UtilDTO): Promise<UtilDTO> {
     return await this.utilModel.create(utilDTO);
   }
+
+  async deleteOne(id: string): Promise<UtilDTO> {
+    return await this.utilModel.findByIdAndDelete(id);
+  }
 }

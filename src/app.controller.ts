@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UtilDTO } from './util.entity';
 
@@ -14,5 +14,10 @@ export class AppController {
   @Post('/add')
   async createUser(@Body() utilDTO: UtilDTO): Promise<UtilDTO> {
     return await this.appService.insertOne(utilDTO);
+  }
+
+  @Delete(':id')
+  async deleteEntry(@Param('id') id: string): Promise<UtilDTO> {
+    return await this.appService.deleteOne(id);
   }
 }
