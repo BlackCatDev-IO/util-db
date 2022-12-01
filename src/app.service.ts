@@ -11,8 +11,7 @@ export class AppService {
 
   async findOne(id: string): Promise<UtilDTO> {
     try {
-      const test = new UtilDTO();
-      return test;
+      return await this.utilModel.findById(id);
     } catch (error) {
       throw new HttpException(error.message, 404);
     }
