@@ -26,7 +26,12 @@ export class AppService {
   }
 
   async insertOne(utilDTO: UtilDTO): Promise<UtilDTO> {
-    return await this.utilModel.create(utilDTO);
+    const data = new UtilDTO();
+    const now = new Date().getTime();
+    const date = new Date(now).toLocaleTimeString('en-US');
+    data.timeStamp = date;
+    data.data = utilDTO;
+    return await this.utilModel.create(data);
   }
 
   async deleteOne(id: string): Promise<UtilDTO> {
