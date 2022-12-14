@@ -25,11 +25,19 @@ export class AppService {
     }
   }
 
+  async findWithTime(): Promise<UtilDTO[]> {
+    try {
+      return await this.utilModel.find({ timestamp: { $exists: true } }).exec();
+    } catch (error) {
+      throw new HttpException(error.message, 404);
+    }
+  }
+
   async insertOne(utilDTO: UtilDTO): Promise<UtilDTO> {
     const data = new UtilDTO();
     const now = new Date().getTime();
-    const date = new Date(now).toLocaleTimeString('en-US');
-    data.timeStamp = date;
+    const date = new Date(now).toISOString();
+    data.timestamp = date;
     data.data = utilDTO;
     return await this.utilModel.create(data);
   }

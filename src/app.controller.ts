@@ -19,6 +19,11 @@ export class AppController {
     return this.appService.findAll();
   }
 
+  @Get('/timestamp')
+  findWithTime(): Promise<UtilDTO[]> {
+    return this.appService.findWithTime();
+  }
+
   @Post('/add')
   @Header('content-type', 'application/json')
   async createUser(@Body() utilDTO: UtilDTO): Promise<UtilDTO> {
