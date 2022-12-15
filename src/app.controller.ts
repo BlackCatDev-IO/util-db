@@ -19,10 +19,11 @@ export class AppController {
     return this.appService.findAll();
   }
 
-  @Get('/timestamp')
-  findWithTime(): Promise<UtilDTO[]> {
-    return this.appService.findWithTime();
+  @Get('/daterange')
+  findWithTime(@Body() utilDto: UtilDTO): Promise<UtilDTO[]> {
+    return this.appService.daterange(utilDto);
   }
+
   @Get('/createdAt')
   findCreatedAt(): Promise<UtilDTO[]> {
     return this.appService.findCreatedAt();

@@ -41,6 +41,22 @@ export class AppService {
     }
   }
 
+  async daterange(utilDto: UtilDTO): Promise<UtilDTO[]> {
+    const { timerange } = utilDto;
+    try {
+      return await this.utilModel
+        .find({
+          createdAt: {
+            $lt: new Date(timerange.beforeUTC),
+            $gte: new Date(timerange.afterUTC),
+          },
+        })
+        .exec();
+    } catch (error) {
+      throw new HttpException(error.message, 404);
+    }
+  }
+
   async insertOne(utilDTO: UtilDTO): Promise<UtilDTO> {
     return await this.utilModel.create(utilDTO);
   }
