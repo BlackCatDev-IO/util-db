@@ -41,14 +41,13 @@ export class AppService {
     }
   }
 
-  async daterange(utilDto: UtilDTO): Promise<UtilDTO[]> {
-    const { timerange } = utilDto;
+  async filterByDateRange(before: string, after: string): Promise<UtilDTO[]> {
     try {
       return await this.utilModel
         .find({
           createdAt: {
-            $lt: new Date(timerange.beforeUTC),
-            $gte: new Date(timerange.afterUTC),
+            $lt: new Date(before),
+            $gte: new Date(after),
           },
         })
         .exec();

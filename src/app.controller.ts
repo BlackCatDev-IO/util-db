@@ -6,6 +6,7 @@ import {
   Header,
   Param,
   Post,
+  Query,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UtilDTO } from './util.entity';
@@ -19,9 +20,14 @@ export class AppController {
     return this.appService.findAll();
   }
 
-  @Get('/daterange')
-  findWithTime(@Body() utilDto: UtilDTO): Promise<UtilDTO[]> {
-    return this.appService.daterange(utilDto);
+  @Get('/daterange?')
+  filterDateRange(
+    @Query('before') before: string,
+    @Query('after') after: string,
+  ): Promise<UtilDTO[]> {
+    console.log(before);
+
+    return this.appService.filterByDateRange(before, after);
   }
 
   @Get('/createdAt')
@@ -35,7 +41,7 @@ export class AppController {
     return await this.appService.insertOne(utilDTO);
   }
 
-  @Delete(':id')
+  @Delete('/delete/:id')
   async deleteEntry(@Param('id') id: string): Promise<UtilDTO> {
     return await this.appService.deleteOne(id);
   }
