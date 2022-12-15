@@ -42,11 +42,15 @@ export class AppService {
   }
 
   async filterByDateRange(before: string, after: string): Promise<UtilDTO[]> {
+    let updatedBefore = before;
+    if (before == null || before == '') {
+      updatedBefore = new Date(Date.now()).toISOString();
+    }
     try {
       return await this.utilModel
         .find({
           createdAt: {
-            $lt: new Date(before),
+            $lt: new Date(updatedBefore),
             $gte: new Date(after),
           },
         })

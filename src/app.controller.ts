@@ -25,8 +25,6 @@ export class AppController {
     @Query('before') before: string,
     @Query('after') after: string,
   ): Promise<UtilDTO[]> {
-    console.log(before);
-
     return this.appService.filterByDateRange(before, after);
   }
 
