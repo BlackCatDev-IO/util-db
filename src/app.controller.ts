@@ -23,6 +23,10 @@ export class AppController {
   findWithTime(): Promise<UtilDTO[]> {
     return this.appService.findWithTime();
   }
+  @Get('/createdAt')
+  findCreatedAt(): Promise<UtilDTO[]> {
+    return this.appService.findCreatedAt();
+  }
 
   @Post('/add')
   @Header('content-type', 'application/json')

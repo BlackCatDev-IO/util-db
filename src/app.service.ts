@@ -33,13 +33,16 @@ export class AppService {
     }
   }
 
+  async findCreatedAt(): Promise<UtilDTO[]> {
+    try {
+      return await this.utilModel.find({ createdAt: { $exists: true } }).exec();
+    } catch (error) {
+      throw new HttpException(error.message, 404);
+    }
+  }
+
   async insertOne(utilDTO: UtilDTO): Promise<UtilDTO> {
-    const data = new UtilDTO();
-    const now = new Date().getTime();
-    const date = new Date(now).toISOString();
-    data.timestamp = date;
-    data.data = utilDTO;
-    return await this.utilModel.create(data);
+    return await this.utilModel.create(utilDTO);
   }
 
   async deleteOne(id: string): Promise<UtilDTO> {
