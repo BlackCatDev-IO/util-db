@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UtilDTO } from './util.entity';
+import { DebugLogDTO } from './debug.log.entity';
 
 @Controller()
 export class AppController {
@@ -48,8 +49,14 @@ export class AppController {
 
   @Post('/epic-skies-debug')
   @Header('content-type', 'application/json')
-  async postDebugLog(@Body() utilDTO: UtilDTO): Promise<UtilDTO> {
-    return await this.appService.insertOne(utilDTO);
+  async postDebugLog(@Body() debugDto: DebugLogDTO): Promise<DebugLogDTO> {
+    return await this.appService.addEpicSkiesLogs(debugDto);
+  }
+
+  @Get('/epic-skies-debug')
+  @Header('content-type', 'application/json')
+  async getDebugLogs(): Promise<DebugLogDTO[]> {
+    return await this.appService.getAllEpicSkiesDebugLogs();
   }
 
   @Delete('/delete/:id')

@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UtilSchema } from './util.entity';
 import { ConfigModule } from '@nestjs/config';
+import { DebugLogSchema } from './debug.log.entity';
 
 @Module({
   imports: [
@@ -13,7 +14,13 @@ import { ConfigModule } from '@nestjs/config';
       connectTimeoutMS: 30000,
       useUnifiedTopology: true,
     }),
-    MongooseModule.forFeature([{ name: 'UtilDTO', schema: UtilSchema }]),
+    MongooseModule.forFeature([
+      { name: 'UtilDTO', schema: UtilSchema },
+      {
+        name: 'DebugLogDTO',
+        schema: DebugLogSchema,
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [AppService],
