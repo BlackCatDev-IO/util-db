@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Query,
+  Redirect,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import { UtilDTO } from './util.entity';
@@ -33,9 +34,21 @@ export class AppController {
     return this.appService.findCreatedAt();
   }
 
+  @Get('/epic-skies-ios')
+  @Redirect('https://testflight.apple.com/join/LXmNjWUW')
+  redirecttoUpdatediOSLink() {
+    return 'https://testflight.apple.com/join/LXmNjWUW';
+  }
+
   @Post('/add')
   @Header('content-type', 'application/json')
   async createUser(@Body() utilDTO: UtilDTO): Promise<UtilDTO> {
+    return await this.appService.insertOne(utilDTO);
+  }
+
+  @Post('/epic-skies-debug')
+  @Header('content-type', 'application/json')
+  async postDebugLog(@Body() utilDTO: UtilDTO): Promise<UtilDTO> {
     return await this.appService.insertOne(utilDTO);
   }
 
